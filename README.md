@@ -2,7 +2,7 @@
 
 A simple BBS using Apache Cassandra.
 
-### Installation
+# Installation
 
 1. Install Apache Cassandra
 
@@ -18,7 +18,7 @@ use bbs_ks;
 create column family bbs  with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type;
 ```
 
-2. Deploy
+3. Deploy
 
 Deploy this application.
 
@@ -26,6 +26,12 @@ Deploy this application.
 git clone https://github.com/hiroakis/simple-bbs-using-cassandra.git
 cd simple-bbs-using-cassandra/
 pip install -r requirements.txt
-python app.py
 ```
 
+4. Start app.py
+
+Start application. Default port is 8000.
+
+```
+python app.py
+```
