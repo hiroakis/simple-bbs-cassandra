@@ -23,8 +23,8 @@ create column family bbs  with comparator=UTF8Type and default_validation_class=
 Deploy this application.
 
 ```
-git clone https://github.com/hiroakis/simple-bbs-using-cassandra.git
-cd simple-bbs-using-cassandra/
+git clone https://github.com/hiroakis/simple-bbs-cassandra.git
+cd simple-bbs-cassandra/
 pip install -r requirements.txt
 ```
 
@@ -35,3 +35,7 @@ Start application. Default port is 8000.
 ```
 python app.py
 ```
+
+### Demo image
+
+![](demo.png?raw=true)
