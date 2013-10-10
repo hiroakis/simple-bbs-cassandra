@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>BBS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+
+      @media (max-width: 980px) {
+        /* Enable use of floated navbar text */
+        .navbar-text.pull-right {
+          float: none;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+    </style>
+    <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="/assets/ico/favicon.png">
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="brand" href="#">BBS</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="span9">
+        <h3 id="page-top">Simple BBS using Cassandra</h3>
+        <span><a href="#post-form">Submit your post</a></span>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <div class="span9">
+          {% for d in data %}
+            <p><b>No.</b> {{ d.key }} <b>name:</b> {{ d.name }} <b>date:</b> {{ d.post_time }}</p>
+            <p>{{ d.content }}</p>
+            <hr>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span9">
+          <h3 id="post-form">Submit your post</h3>
+          <form method="post" action="/add_post">
+            <div class="controls">
+              <input class="input-small" name="name" type="text" placeholder="name">
+            </div>
+            <div class="controls">
+              <textarea name="content" rows="3"></textarea>
+            </div>
+            <div class="controls">
+              <button type="submit" class="btn btn-primary">submit</button>
+            </div>
+          </form>
+        </div>
+      </div><!--/row-->
+      <div class="row">
+        <div class="span9">
+          <span><a href="#page-top">go to the top</a></span>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; Hiroaki Sano</p>
+      </footer>
+    </div><!--/.fluid-container-->
+  </body>
+</html>
+
