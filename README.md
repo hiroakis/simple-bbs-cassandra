@@ -13,9 +13,10 @@ Install Apache Cassandra on your server.
 Connect to cassandra command line interface, then create keyspace and create column family.
 
 ```
-create keyspace bbs_ks;
-use bbs_ks;
-create column family bbs  with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type;
+
+create keyspace bbs;
+use bbs;
+create column family threads  with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type;
 ```
 
 * Deploy

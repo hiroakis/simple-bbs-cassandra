@@ -1,102 +1,79 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <title>BBS</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
 
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
 
-      @media (max-width: 980px) {
-        /* Enable use of floated navbar text */
-        .navbar-text.pull-right {
-          float: none;
-          padding-left: 5px;
-          padding-right: 5px;
-        }
-      }
-    </style>
-    <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet">
+{% block content_body %}
+<div class="row">
+  <div class="span6">
+    <h3 id="page-top">Thread list</h3>
+    <span><a href="#post-form">Create new thread</a></span>
+  </div>
+</div>
 
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
-    <link rel="shortcut icon" href="/assets/ico/favicon.png">
-  </head>
+<hr>
 
-  <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="brand" href="#">BBS</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="/">Home</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
+<div class="row">
+  <div class="span4">
+    <form class="form-inline">
+      Search: <i class="icon-search"></i> <input type="text" id="search" placeholder="Thread Filter">
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span9">
+    <table id="tbl" class="table table-striped table-condensed">
+      <tr>
+        <th>No.</th>
+        <th>Title</th>
+        <th>Created</th>
+        <th>Updated</th>
+      </tr>
+      {% for d in data %}
+      <tr class="threads">
+        <td> {{ loop.index }} </td>
+        <td> <a href="/{{ d.thread_id }}/">{{ d.thread_name}} ({{ d.post_count }})</a> </td>
+        <td> {{ d.create_time}} </td>
+        <td> {{ d.update_time}} </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span9">
+    <h3 id="post-form">Create new thread</h3>
+    <form method="post" action="/create_thread">
+      <div class="controls">
+        <input class="input-large" name="thread_name" type="text" placeholder="thread title">
       </div>
-    </div>
-
-    <div class="container-fluid">
-
-      <div class="row">
-        <div class="span9">
-        <h3 id="page-top">Simple BBS using Cassandra</h3>
-        <span><a href="#post-form">Submit your post</a></span>
-        </div>
+      <div class="controls">
+        <input class="input-small" name="name" type="text" placeholder="your name">
       </div>
-
-      <hr>
-
-      <div class="row">
-        <div class="span9">
-          {% for d in data %}
-            <p><b>No.</b> {{ d.key }} <b>name:</b> {{ d.name }} <b>date:</b> {{ d.post_time }}</p>
-            <p>{{ d.content }}</p>
-            <hr>
-          {% endfor %}
-        </div>
+      <div class="controls">
+        <textarea name="content" rows="3" placeholder="your opinion"></textarea>
       </div>
-
-      <div class="row">
-        <div class="span9">
-          <h3 id="post-form">Submit your post</h3>
-          <form method="post" action="/add_post">
-            <div class="controls">
-              <input class="input-small" name="name" type="text" placeholder="name">
-            </div>
-            <div class="controls">
-              <textarea name="content" rows="3"></textarea>
-            </div>
-            <div class="controls">
-              <button type="submit" class="btn btn-primary">submit</button>
-            </div>
-          </form>
-        </div>
-      </div><!--/row-->
-      <div class="row">
-        <div class="span9">
-          <span><a href="#page-top">go to the top</a></span>
-        </div>
+      <div class="controls">
+        <button type="submit" class="btn btn-primary">submit</button>
       </div>
+    </form>
+  </div>
+</div><!--/row-->
+<div class="row">
+  <div class="span9">
+    <span><a href="#page-top">go to the top</a></span>
+  </div>
+</div>
+{% endblock %}
 
-      <hr>
 
-      <footer>
-        <p>&copy; Hiroaki Sano</p>
-      </footer>
-    </div><!--/.fluid-container-->
-  </body>
-</html>
+{% block script %}
+<script src="/static/js/jquery-1.8.2.min.js" type="text/javascript"></script>
+<script src="/static/js/jquery.quicksearch.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $('input#search').quicksearch('table#tbl tr.threads', {
+        delay: 300,
+    });
+</script>
+{% endblock %}
 

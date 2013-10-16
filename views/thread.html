@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block content_body %}
+<div class="row">
+  <div class="span9">
+  <h3 id="page-top">{{ title }}</h3>
+  <span><a href="#post-form">Submit your post</a></span>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="span9">
+    {% for d in data %}
+      <p><b>No.</b> {{ d.key }} <b>name:</b> {{ d.name }} <b>date:</b> {{ d.post_time }}</p>
+      <p>{{ d.content }}</p>
+    <hr>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="span9">
+    <h3 id="post-form">Submit your post</h3>
+    <form method="post" action="/add_post">
+      <input name="thread_id" value="{{ thread_id }}" type="hidden">
+      <div class="controls">
+        <input class="input-small" name="your name" type="text" placeholder="name">
+      </div>
+      <div class="controls">
+        <textarea name="content" rows="3" placeholder="your opinion"></textarea>
+      </div>
+      <div class="controls">
+        <button type="submit" class="btn btn-primary">submit</button>
+      </div>
+    </form>
+  </div>
+</div><!--/row-->
+<div class="row">
+  <div class="span9">
+    <span><a href="#page-top">go to the top</a></span>
+  </div>
+</div>
+{% endblock %}
