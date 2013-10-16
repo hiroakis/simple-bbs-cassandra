@@ -13,7 +13,6 @@ Install Apache Cassandra on your server.
 Connect to cassandra command line interface, then create keyspace and create column family.
 
 ```
-
 create keyspace bbs;
 use bbs;
 create column family threads  with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type;
@@ -39,4 +38,8 @@ python app.py
 
 ### Demo image
 
-![](demo.png?raw=true)
+* Thread list
+![](demo1.png?raw=true)
+
+* Posts in the thread
+![](demo2.png?raw=true)
