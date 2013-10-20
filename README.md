@@ -36,6 +36,12 @@ Start application. Default port is 8000.
 python app.py
 ```
 
+or Using gunicorn
+
+```
+gunicorn app:app -w 2 --bind=0.0.0.0:8000
+```
+
 ### Demo image
 
 * Thread list
