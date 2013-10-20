@@ -3,3 +3,4 @@
 *.bk
 dist
 *.egg-info
+*.out

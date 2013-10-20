@@ -1,4 +1,6 @@
 from bottle import route, run, redirect, request, static_file, jinja2_template
+import bottle
+import re
 
 @route('/')
 def bbs_top():
@@ -20,6 +22,8 @@ def create_thread():
         name = escape_special_chars(name)
     content = request.forms.get('content')
     content = escape_special_chars(content)
+    content = replace_lf_to_br_tag(content)
+    content = insert_a_tag(content)
 
     bbs = Bbs()
     thread_id = bbs.create_new_thread(thread_name)
@@ -48,6 +52,8 @@ def add_post():
         name = escape_special_chars(name)
     content = request.forms.get('content')
     content = escape_special_chars(content)
+    content = replace_lf_to_br_tag(content)
+    content = insert_a_tag(content)
 
     bbs = Bbs()
     if bbs.add_new_post(thread_id, name, content) == False:
@@ -66,7 +72,15 @@ def escape_special_chars(content):
     content = content.replace('>', '&gt;')
     content = content.replace('\'', '&#39;')
     content = content.replace('"', '&quot;')
+    return content
+
+def replace_lf_to_br_tag(content):
     content = content.replace('\n', '<br>')
+    return content
+
+def insert_a_tag(content):
+    pattern = re.compile(r'(?P<url>http://[A-Za-z0-9\'~+\-=_.,/%\?!;:@#\*&\(\)]+)')
+    content = pattern.sub(r'<a href="\g<url>">\g<url></a>', content)
     return content
 
 from pycassa.pool import ConnectionPool
@@ -221,3 +235,5 @@ class Bbs(object):
 
 if __name__ == '__main__':
     run(host='0.0.0.0', port=8000, debug=True, reloader=True)
+
+app = bottle.default_app()
