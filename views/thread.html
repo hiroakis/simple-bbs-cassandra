@@ -14,7 +14,7 @@
 <div class="row">
   <div class="span9">
     {% for d in data %}
-      <p><b>No.</b> {{ d.key }} <b>name:</b> {{ d.name }} <b>date:</b> {{ d.post_time }}</p>
+      <p id="{{ loop.index }}"><b>No.</b> {{ d.key }} <b>name:</b> {{ d.name }} <b>date:</b> {{ d.post_time }}</p>
       <p>{{ d.content }}</p>
     <hr>
     {% endfor %}

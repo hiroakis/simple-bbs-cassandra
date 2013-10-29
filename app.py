@@ -23,7 +23,8 @@ def create_thread():
     content = request.forms.get('content')
     content = escape_special_chars(content)
     content = replace_lf_to_br_tag(content)
-    content = insert_a_tag(content)
+    content = link(content)
+    content = anker(content)
 
     bbs = Bbs()
     thread_id = bbs.create_new_thread(thread_name)
@@ -53,7 +54,8 @@ def add_post():
     content = request.forms.get('content')
     content = escape_special_chars(content)
     content = replace_lf_to_br_tag(content)
-    content = insert_a_tag(content)
+    content = link(content)
+    content = anker(content)
 
     bbs = Bbs()
     if bbs.add_new_post(thread_id, name, content) == False:
@@ -78,9 +80,14 @@ def replace_lf_to_br_tag(content):
     content = content.replace('\n', '<br>')
     return content
 
-def insert_a_tag(content):
+def link(content):
     pattern = re.compile(r'(?P<url>http://[A-Za-z0-9\'~+\-=_.,/%\?!;:@#\*&\(\)]+)')
     content = pattern.sub(r'<a href="\g<url>">\g<url></a>', content)
+    return content
+
+def anker(content):
+    pattern = re.compile(r'&gt;&gt;(?P<number>[0-9]+)')
+    content = pattern.sub(r'<a href="#\g<number>">&gt;&gt;\g<number></a>', content)
     return content
 
 from pycassa.pool import ConnectionPool
